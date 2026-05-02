@@ -13,9 +13,14 @@ npm run preview  # Preview production build
 
 ## Architecture
 
-This is a single-file React app (`src/App.jsx`) with no routing, no state management library, and no backend — all state is in-memory via `useState`. There are no separate component files yet.
+No routing, no state management library, no backend — all state is in-memory via `useState`.
 
-**Known issues (intentional, part of the course):**
-- `amount` is stored as a string in transaction state, causing string concatenation instead of numeric addition in `totalIncome`/`totalExpenses` calculations
+**Component structure:**
+
+- `App.jsx` — holds `transactions` state and seed data; passes it down to children
+- `Summary.jsx` — receives `transactions`, computes `totalIncome`/`totalExpenses`/`balance` internally
+- `TransactionForm.jsx` — owns its own form state; calls `onAdd(transaction)` prop on submit
+- `TransactionList.jsx` — owns filter state (`filterType`, `filterCategory`); receives `transactions` and renders the filtered table
+
+**Known issue (intentional, part of the course):**
 - "Freelance Work" is seeded as `type: "expense"` but `category: "salary"` — inconsistent data
-- UI styling is minimal and unpolished
