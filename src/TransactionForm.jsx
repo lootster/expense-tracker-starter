@@ -28,8 +28,8 @@ function TransactionForm({ onAdd }) {
   };
 
   return (
-    <div className="add-transaction">
-      <h2>NEW.ENTRY</h2>
+    <div className="add-transaction terminal-card">
+      <h2 className="section-heading">NEW.ENTRY</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

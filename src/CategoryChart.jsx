@@ -12,7 +12,7 @@ function CategoryChart({ transactions }) {
     }, {});
 
   const data = Object.entries(totalsByCategory)
-    .map(([name, value]) => ({ name: name.toUpperCase(), value }))
+    .map(([name, value]) => ({ name, value }))
     .sort((a, b) => b.value - a.value);
 
   const tooltipStyle = {
@@ -26,8 +26,8 @@ function CategoryChart({ transactions }) {
   };
 
   return (
-    <div className="category-chart">
-      <h2>SPEND.BY_CAT</h2>
+    <div className="category-chart terminal-card">
+      <h2 className="section-heading">SPEND.BY_CAT</h2>
       {data.length === 0 ? (
         <p className="empty-state">no expenses logged</p>
       ) : (
@@ -38,6 +38,7 @@ function CategoryChart({ transactions }) {
               dataKey="name"
               stroke="#00aa44"
               tick={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: 10, letterSpacing: '0.12em' }}
+              tickFormatter={(value) => value.toUpperCase()}
               tickLine={false}
             />
             <YAxis
@@ -50,8 +51,9 @@ function CategoryChart({ transactions }) {
             <Tooltip
               contentStyle={tooltipStyle}
               labelStyle={{ color: '#00aa44', fontSize: '10px', letterSpacing: '0.18em' }}
+              labelFormatter={(label) => label.toUpperCase()}
               cursor={{ fill: 'rgba(0, 255, 102, 0.05)' }}
-              formatter={(value) => [`$${value.toFixed(2)}`, 'AMOUNT']}
+              formatter={(value) => [`$${Number(value).toFixed(2)}`, 'AMOUNT']}
             />
             <Bar dataKey="value" isAnimationActive={true}>
               {data.map((entry, index) => (

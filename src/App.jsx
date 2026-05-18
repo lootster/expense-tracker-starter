@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Summary from './Summary'
 import TransactionForm from './TransactionForm'
@@ -25,13 +25,21 @@ function App() {
     setTransactions(transactions.filter(t => t.id !== id));
   };
 
-  const now = new Date();
-  const stamp = now.toISOString().replace('T', ' ').slice(0, 19);
+  const [stamp, setStamp] = useState(() =>
+    new Date().toISOString().replace('T', ' ').slice(0, 19)
+  );
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setStamp(new Date().toISOString().replace('T', ' ').slice(0, 19));
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div className="app">
       <div className="header-bar">
-        <span className="brand">FIN-TRACK_</span>
+        <h1 className="brand">FIN-TRACK_</h1>
         <span className="meta">
           <span><span className="dot"></span>LIVE</span>
           <span>{stamp} UTC</span>

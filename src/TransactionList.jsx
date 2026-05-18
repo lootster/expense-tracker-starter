@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { fmtAmount } from './format';
 
 const categories = ["food", "housing", "utilities", "transport", "entertainment", "salary", "other"];
 
@@ -14,11 +15,9 @@ function TransactionList({ transactions, onDelete }) {
     filtered = filtered.filter(t => t.category === filterCategory);
   }
 
-  const fmt = (n) => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
   return (
-    <div className="transactions">
-      <h2>LEDGER.TAIL</h2>
+    <div className="transactions terminal-card">
+      <h2 className="section-heading">LEDGER.TAIL</h2>
       <div className="filters">
         <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
           <option value="all">ALL TYPES</option>
@@ -53,7 +52,7 @@ function TransactionList({ transactions, onDelete }) {
                 style={{ textAlign: 'right' }}
                 className={t.type === "income" ? "income-amount" : "expense-amount"}
               >
-                {t.type === "income" ? "+" : "-"}{fmt(t.amount)}
+                {t.type === "income" ? "+" : "-"}{fmtAmount(Math.abs(t.amount))}
               </td>
               <td style={{ width: 1 }}>
                 <button
