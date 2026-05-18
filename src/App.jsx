@@ -25,15 +25,39 @@ function App() {
     setTransactions(transactions.filter(t => t.id !== id));
   };
 
+  const now = new Date();
+  const stamp = now.toISOString().replace('T', ' ').slice(0, 19);
+
   return (
     <div className="app">
-      <h1>Finance Tracker</h1>
-      <p className="subtitle">Track your income and expenses</p>
+      <div className="header-bar">
+        <span className="brand">FIN-TRACK_</span>
+        <span className="meta">
+          <span><span className="dot"></span>LIVE</span>
+          <span>{stamp} UTC</span>
+          <span>v0.18.5</span>
+        </span>
+      </div>
+
+      <p className="prompt-line">
+        query: balance --month=current --verbose<span className="cursor"></span>
+      </p>
 
       <Summary transactions={transactions} />
       <CategoryChart transactions={transactions} />
       <TransactionForm onAdd={handleAdd} />
       <TransactionList transactions={transactions} onDelete={handleDelete} />
+
+      <div className="status-bar">
+        <span className="pulse"></span>
+        <span>SESSION OK</span>
+        <span className="sep">│</span>
+        <span>{transactions.length} RECORDS</span>
+        <span className="sep">│</span>
+        <span>ENCRYPTED · LOCAL</span>
+        <span className="sep">│</span>
+        <span style={{ marginLeft: 'auto' }}>READY</span>
+      </div>
     </div>
   );
 }

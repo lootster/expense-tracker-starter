@@ -14,19 +14,21 @@ function TransactionList({ transactions, onDelete }) {
     filtered = filtered.filter(t => t.category === filterCategory);
   }
 
+  const fmt = (n) => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
   return (
     <div className="transactions">
-      <h2>Transactions</h2>
+      <h2>LEDGER.TAIL</h2>
       <div className="filters">
         <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
-          <option value="all">All Types</option>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
+          <option value="all">ALL TYPES</option>
+          <option value="income">INCOME</option>
+          <option value="expense">EXPENSE</option>
         </select>
         <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
-          <option value="all">All Categories</option>
+          <option value="all">ALL CATEGORIES</option>
           {categories.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
+            <option key={cat} value={cat}>{cat.toUpperCase()}</option>
           ))}
         </select>
       </div>
@@ -37,7 +39,7 @@ function TransactionList({ transactions, onDelete }) {
             <th>Date</th>
             <th>Description</th>
             <th>Category</th>
-            <th>Amount</th>
+            <th style={{ textAlign: 'right' }}>Amount</th>
             <th></th>
           </tr>
         </thead>
@@ -46,11 +48,14 @@ function TransactionList({ transactions, onDelete }) {
             <tr key={t.id}>
               <td>{t.date}</td>
               <td>{t.description}</td>
-              <td>{t.category}</td>
-              <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
-                {t.type === "income" ? "+" : "-"}${t.amount}
+              <td style={{ textTransform: 'uppercase', letterSpacing: '0.08em' }}>{t.category}</td>
+              <td
+                style={{ textAlign: 'right' }}
+                className={t.type === "income" ? "income-amount" : "expense-amount"}
+              >
+                {t.type === "income" ? "+" : "-"}{fmt(t.amount)}
               </td>
-              <td>
+              <td style={{ width: 1 }}>
                 <button
                   className="delete-btn"
                   onClick={() => {
@@ -59,7 +64,7 @@ function TransactionList({ transactions, onDelete }) {
                     }
                   }}
                 >
-                  Delete
+                  del
                 </button>
               </td>
             </tr>

@@ -1,11 +1,78 @@
+:root {
+  --bg: #000000;
+  --bg-elev: #050a05;
+  --phosphor: #00ff66;
+  --phosphor-dim: #00aa44;
+  --phosphor-ghost: #00ff6620;
+  --amber: #ffb000;
+  --amber-dim: #b07700;
+  --red: #ff3848;
+  --grid: #0f1a0f;
+  --line: #1a2a1a;
+  --muted: #3a5a3a;
+  --cursor-blink: var(--phosphor);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html,
 body {
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
-  color: #333;
+  background-color: var(--bg);
+  color: var(--phosphor);
+  font-family: "IBM Plex Mono", ui-monospace, "Menlo", monospace;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 1px var(--phosphor-ghost);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* CRT scanline overlay — subtle, not gimmicky */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgba(0, 255, 102, 0.025) 2px,
+    rgba(0, 255, 102, 0.025) 3px
+  );
+  z-index: 9999;
+  mix-blend-mode: screen;
+}
+
+/* Phosphor glow on root container edges */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: 9998;
+}
+
+::selection {
+  background: var(--phosphor);
+  color: var(--bg);
+}
+
+input,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
 }

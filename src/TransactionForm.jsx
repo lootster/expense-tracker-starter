@@ -29,30 +29,30 @@ function TransactionForm({ onAdd }) {
 
   return (
     <div className="add-transaction">
-      <h2>Add Transaction</h2>
+      <h2>NEW.ENTRY</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Description"
+          placeholder="> description..."
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <input
           type="number"
-          placeholder="Amount"
+          placeholder="0.00"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
         <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
+          <option value="income">INCOME</option>
+          <option value="expense">EXPENSE</option>
         </select>
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
           {categories.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
+            <option key={cat} value={cat}>{cat.toUpperCase()}</option>
           ))}
         </select>
-        <button type="submit">Add</button>
+        <button type="submit">commit</button>
       </form>
     </div>
   );

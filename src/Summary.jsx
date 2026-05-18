@@ -8,19 +8,24 @@ function Summary({ transactions }) {
     .reduce((sum, t) => sum + t.amount, 0);
 
   const balance = totalIncome - totalExpenses;
+
+  const fmt = (n) => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
   return (
     <div className="summary">
       <div className="summary-card">
-        <h3>Income</h3>
-        <p className="income-amount">${totalIncome}</p>
+        <h3>INFLOW</h3>
+        <p className="income-amount">+{fmt(totalIncome)}</p>
       </div>
       <div className="summary-card">
-        <h3>Expenses</h3>
-        <p className="expense-amount">${totalExpenses}</p>
+        <h3>OUTFLOW</h3>
+        <p className="expense-amount">-{fmt(totalExpenses)}</p>
       </div>
       <div className="summary-card">
-        <h3>Balance</h3>
-        <p className="balance-amount">${balance}</p>
+        <h3>NET</h3>
+        <p className={"balance-amount" + (balance < 0 ? " negative" : "")}>
+          {balance >= 0 ? '+' : '-'}{fmt(Math.abs(balance))}
+        </p>
       </div>
     </div>
   );
